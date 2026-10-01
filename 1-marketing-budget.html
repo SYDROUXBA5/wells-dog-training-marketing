@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Well-Mannered Hounds Budget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --surface-2:#EDF1EF; --ink:#12201B; --ink-2:#4A5A54; --ink-3:#7C8A85;
+  --line:#DCE3E0; --accent:#1C5C4B; --accent-soft:#DDEBE6; --good:#1F8A5B; --good-soft:#DDF2E7; --warn:#B26A12; --warn-soft:#F7EBDA; --bad:#B8322A; --bad-soft:#F8E1DE;
+  --c-paid:#2F6FDB; --c-web:#12968A; --c-brand:#7456E8; --c-comm:#D98521; --c-ref:#CF3F74; --c-print:#6E8B1F; --c-soft:#5F6F86; --c-crm:#9C5B3A;
+  --shadow:0 1px 2px rgba(18,32,27,.05),0 8px 24px -12px rgba(18,32,27,.12);
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0E1513; --surface:#151F1C; --surface-2:#1B2723; --ink:#E7EEEB; --ink-2:#A9B7B2; --ink-3:#7A8A84;
+  --line:#26332F; --accent:#6FC7AE; --accent-soft:#1D3530; --good:#5FD39A; --good-soft:#173328; --warn:#E9A64B; --warn-soft:#3A2B17; --bad:#F07A6A; --bad-soft:#3A1E1B;
+  --c-paid:#5B8FF0; --c-web:#2DBDAF; --c-brand:#9A83F5; --c-comm:#EDA14A; --c-ref:#EC6A98; --c-print:#9BBB3E; --c-soft:#8C9BB2; --c-crm:#D6906A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1513; --surface:#151F1C; --surface-2:#1B2723; --ink:#E7EEEB; --ink-2:#A9B7B2; --ink-3:#7A8A84;
+  --line:#26332F; --accent:#6FC7AE; --accent-soft:#1D3530; --good:#5FD39A; --good-soft:#173328; --warn:#E9A64B; --warn-soft:#3A2B17; --bad:#F07A6A; --bad-soft:#3A1E1B;
+  --c-paid:#5B8FF0; --c-web:#2DBDAF; --c-brand:#9A83F5; --c-comm:#EDA14A; --c-ref:#EC6A98; --c-print:#9BBB3E; --c-soft:#8C9BB2; --c-crm:#D6906A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:28px 56px;font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+h1,h2{margin:0;text-wrap:balance}
+h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+h2{font-size:17px;font-weight:700;letter-spacing:-.005em}
+p{margin:0}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.brand{display:grid;gap:8px}
+.mark{display:flex;align-items:center;gap:10px}
+.mark svg{flex:none}
+.sub{color:var(--ink-2);max-width:62ch}
+.meta{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:13px}
+.meta dt{color:var(--ink-3)} .meta dd{margin:0;font-weight:600;text-align:right}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}
+.pill.ok{background:var(--good-soft);color:var(--good)}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.kpi{padding:18px 20px;display:grid;gap:6px;align-content:start;border-left:1px solid var(--line)}
+.kpi:first-child{border-left:0}
+.kpi .v{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.kpi .n{font-size:12.5px;color:var(--ink-2)}
+.kpi.hero .v{color:var(--accent)}
+.meter{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.meter i{display:block;height:100%;width:100%;background:var(--good)}
+@media (max-width:980px){.kpis{grid-template-columns:repeat(3,1fr)}.kpi:nth-child(4){border-left:0}.kpi:nth-child(n+4){border-top:1px solid var(--line)}}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}.kpi{border-left:1px solid var(--line)!important;border-top:1px solid var(--line)}.kpi:nth-child(odd){border-left:0!important}.kpi:nth-child(-n+2){border-top:0}}
+
+/* panels */
+.grid2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px;align-content:start;min-width:0}
+.ph{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.ph p{font-size:13px;color:var(--ink-3)}
+
+/* allocation */
+.alloc{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center}
+@media (max-width:460px){.alloc{grid-template-columns:1fr;justify-items:center}}
+.donut{width:180px;height:180px;max-width:100%}
+.legend{display:grid;gap:2px;width:100%}
+.lg{display:grid;grid-template-columns:10px 1fr auto auto;gap:10px;align-items:center;padding:7px 8px;border-radius:8px;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;width:100%}
+.lg:hover,.lg.on{background:var(--surface-2)}
+.lg:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sw{width:10px;height:10px;border-radius:3px}
+.lg .nm{font-size:13.5px;font-weight:500}
+.lg .pc{font-size:12px;color:var(--ink-3);font-family:var(--mono)}
+.lg .am{font-size:13.5px;font-weight:600;min-width:62px;text-align:right}
+
+/* chart */
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--ink-3);font-family:var(--mono);font-size:10.5px}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .cum{fill:none;stroke:var(--ink);stroke-width:1.75}
+.chart .cumdot{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}
+.chart .col:hover rect{opacity:.85}
+.chart .phase{fill:var(--surface-2)}
+.chart .phl{fill:var(--ink-2);font-family:var(--sans);font-size:11px;font-weight:600}
+.keyrow{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink-2)}
+.keyrow span{display:inline-flex;align-items:center;gap:6px}
+.keyrow .ln{width:14px;height:2px;background:var(--ink)}
+
+/* tables */
+.tw{overflow-x:auto;margin-inline:-20px;padding-inline:20px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+th.r,td.r{text-align:right}
+tbody tr:hover td{background:var(--surface-2)}
+tfoot td{font-weight:700;border-bottom:0;border-top:2px solid var(--ink)}
+.chn{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.bar{height:6px;border-radius:3px;background:var(--surface-2);min-width:70px;overflow:hidden}
+.bar i{display:block;height:100%}
+.tag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.tag.found{background:var(--accent-soft);color:var(--accent)}
+.muted{color:var(--ink-3)}
+.itm{font-weight:600}
+.itm small{display:block;font-weight:400;color:var(--ink-3);font-size:12.5px}
+
+/* month strip in ledger */
+.strip{display:grid;grid-template-columns:repeat(12,9px);gap:2px}
+.strip i{height:14px;border-radius:2px;background:var(--surface-2)}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* compliance */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.checks{display:grid;gap:8px;margin:0;padding:0;list-style:none;font-size:13.5px}
+.checks li{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start}
+.checks svg{margin-top:2px}
+.assump{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;margin:0}
+.assump dt{color:var(--ink-3)} .assump dd{margin:0;font-weight:600}
+.vd{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.vd.ok{background:var(--good-soft);color:var(--good)}
+.vd.cons{background:var(--accent-soft);color:var(--accent)}
+.vd.est{background:var(--surface-2);color:var(--warn)}
+.vkey{font-size:12.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.ev{min-width:260px;max-width:46ch;color:var(--ink-2)}
+.ev .calc{display:block;margin-top:4px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.src a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.src a:hover{text-decoration-thickness:2px}
+.src small{display:block;color:var(--ink-3);font-size:11.5px;word-break:break-all;max-width:30ch}
+#srctbl td{vertical-align:top}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pl-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 16px}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.tog input{width:16px;height:16px;accent-color:var(--accent)}
+.sliders{display:grid;gap:4px}
+.sl{display:grid;grid-template-columns:minmax(150px,210px) 1fr 104px 84px;gap:8px 16px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.sl:last-child{border-bottom:0}
+.sl .nm{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600}
+.sl input[type=range]{width:100%;min-width:0;height:22px;margin:0}
+.num{width:100%;font:500 13.5px var(--mono);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:6px 8px;text-align:right}
+.num:focus-visible,.btn:focus-visible,.tog input:focus-visible,input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dl{font:500 12px var(--mono);text-align:right;color:var(--ink-3)}
+.dl.up{color:var(--good)} .dl.dn{color:var(--warn)}
+@media (max-width:620px){.sl{grid-template-columns:1fr 104px 70px}.sl input[type=range]{grid-column:1/-1;grid-row:2}}
+.pl-foot{display:grid;gap:10px}
+.stack{position:relative;height:14px;border-radius:7px;background:var(--surface-2);display:flex;overflow:hidden}
+.stack i{height:100%;transition:width .25s ease}
+.stack .cap{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.pl-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:13px}
+.pl-row .sp{flex:1}
+.btn{font:inherit;font-size:13px;font-weight:600;border-radius:8px;padding:7px 14px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--ink-2);border-color:var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.acv{display:grid;grid-template-columns:auto minmax(120px,280px) auto 1fr;gap:8px 14px;align-items:center;font-size:13px;padding-top:12px;border-top:1px solid var(--line)}
+.acv label{font-weight:600}
+.acv output{font:600 14px var(--mono);min-width:48px}
+@media (max-width:620px){.acv{grid-template-columns:1fr auto}.acv input{grid-column:1/-1}.acv .muted{grid-column:1/-1}}
+#tip{position:fixed;z-index:10;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.45;padding:8px 10px;border-radius:8px;white-space:pre-line;max-width:260px;box-shadow:var(--shadow)}
+#tip b{font-weight:700}
+tr.item{cursor:pointer}
+tr.item:focus-visible td{outline:2px solid var(--accent);outline-offset:-2px}
+.chev{display:inline-block;width:8px;margin-right:6px;color:var(--ink-3);transition:transform .15s}
+tr.item[aria-expanded="true"] .chev{transform:rotate(90deg)}
+tr.det td{background:var(--surface-2)}
+.mgrid{display:grid;grid-template-columns:repeat(12,minmax(58px,1fr));gap:6px}
+.mgrid div{display:grid;gap:2px;font-size:12px}
+.mgrid span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);text-transform:uppercase}
+@media (max-width:620px){.mgrid{grid-template-columns:repeat(4,1fr)}}
+.chg{font:500 11.5px var(--mono);display:block}
+.chg.up{color:var(--good)} .chg.dn{color:var(--warn)}
+.chart .col{cursor:default}
+.foot{font-size:12px;color:var(--ink-3);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+@media (prefers-reduced-motion:no-preference){.meter i,.bar i{transition:width .6s ease}}
+
+/* direct vs brand */
+.why{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:28px;align-items:start}
+@media (max-width:900px){.why{grid-template-columns:1fr}}
+.split{display:grid;gap:14px}
+.splitbar{display:flex;height:40px;border-radius:10px;overflow:hidden;background:var(--surface-2)}
+.splitbar i{display:flex;align-items:center;padding-inline:12px;font:600 12.5px var(--sans);color:#fff;white-space:nowrap;overflow:hidden}
+.splitbar .d{background:var(--accent)} .splitbar .b{background:var(--c-brand)}
+.splitleg{display:grid;gap:8px;font-size:13.5px}
+.splitleg div{display:grid;grid-template-columns:10px 1fr auto;gap:10px;align-items:center}
+.splitleg b{font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:12px 14px}
+.reasons{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.reasons li{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.reasons li:first-child{padding-top:0}
+.reasons li:last-child{border-bottom:0;padding-bottom:0}
+.reasons .k{width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.reasons h3{margin:0 0 4px;font-size:15px;font-weight:700;text-wrap:balance}
+.reasons p{font-size:13.5px;color:var(--ink-2);max-width:68ch}
+.reasons .cite{display:block;margin-top:6px;font-size:12px}
+.reasons .cite a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.tag.direct{background:var(--accent-soft);color:var(--accent)}
+.tag.brand{background:color-mix(in srgb,var(--c-brand) 16%,transparent);color:var(--c-brand)}
+.vd{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.vd.ok{background:var(--good-soft);color:var(--good)}
+.vd.cons{background:var(--accent-soft);color:var(--accent)}
+.vd.est{background:var(--surface-2);color:var(--warn)}
+.vkey{font-size:12.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+
+body{margin:0}
+.docnav{max-width:1180px;margin:0 auto 18px;display:flex;flex-wrap:wrap;gap:6px}
+.docnav a{font:600 12.5px var(--sans);text-decoration:none;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px}
+.docnav a[aria-current]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.docnav a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<nav class="docnav" aria-label="Documents"><a href="1-marketing-budget.html" aria-current="page">Marketing budget</a><a href="2-keyword-plan.html">Keyword plan</a><a href="3-website-outline.html">Website outline</a></nav>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="mark">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="var(--accent)"/><path d="M10 22c0-4 3-7 7-7s7 3 7 7M12.5 13.5a1.6 1.6 0 1 0 0-.01M21.5 13.5a1.6 1.6 0 1 0 0-.01M15 10a1.5 1.5 0 1 0 0-.01M19 10a1.5 1.5 0 1 0 0-.01" stroke="var(--surface)" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+        <span class="eyebrow">Well-Mannered Hounds · Wells, Somerset</span>
+      </div>
+      <h1>2027 Launch Marketing Budget</h1>
+      <p class="sub">A 12-month, £25,000 plan to launch a training-only dog business in Wells and the surrounding Mendip towns. Every pound goes to direct response, meaning spending that produces an enquiry or booking we can track. None of it goes to kennels or to buying or running a vehicle.</p>
+    </div>
+    <dl class="meta">
+      <dt>Status</dt><dd><span class="pill ok"><span class="dot"></span>Fully allocated</span></dd>
+      <dt>Period</dt><dd>Jan – Dec 2027</dd>
+      <dt>Currency</dt><dd>GBP (£), incl. VAT where charged</dd>
+      <dt>Strategy</dt><dd id="m-strat">—</dd>
+      <dt>Line items</dt><dd id="m-items">—</dd>
+      <dt>Prepared</dt><dd>27 Sep 2026</dd>
+    </dl>
+  </header>
+
+  <section class="kpis" aria-label="Budget summary">
+    <div class="kpi hero"><span class="eyebrow">Total budget</span><span class="v" id="k-total">£25,000</span><div class="meter"><i></i></div><span class="n"><b id="k-alloc">£25,000</b> allocated · <b>£0</b> left</span></div>
+    <div class="kpi"><span class="eyebrow">Direct response</span><span class="v" id="k-dir">—</span><span class="n" id="k-dirn">—</span></div>
+    <div class="kpi"><span class="eyebrow">Launch quarter</span><span class="v" id="k-q1">—</span><span class="n" id="k-q1n">—</span></div>
+    <div class="kpi"><span class="eyebrow">Projected enquiries</span><span class="v" id="k-leads">—</span><span class="n" id="k-cpl">—</span></div>
+    <div class="kpi"><span class="eyebrow">Projected clients</span><span class="v" id="k-cli">—</span><span class="n" id="k-cac">—</span></div>
+    <div class="kpi"><span class="eyebrow">Projected return</span><span class="v" id="k-roi">—</span><span class="n" id="k-rev">—</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="ph"><h2>Why 100% direct response, £0 on brand</h2><p>The reasoning behind the plan</p></div>
+    <div class="why">
+      <div class="split">
+        <div class="splitbar" id="splitbar"></div>
+        <div class="splitleg" id="splitleg"></div>
+        <p class="note"><b>What counts as direct response?</b> Spending that prompts an action we can count, such as a search-ad click, a lead form, a voucher code, a market-stall sign-up or a referral. <b>Brand</b> is spending that builds recognition over time with no immediate action attached.</p>
+        <p class="note"><b>When brand spending starts:</b> in year 2, paid for out of year-1 revenue, once there are clients and reviews to build on. The research recommends a larger brand share for established businesses, not for launches.</p>
+      </div>
+      <ul class="reasons" id="reasons"></ul>
+    </div>
+  </section>
+
+  <div class="grid2">
+    <section class="panel">
+      <div class="ph"><h2>Allocation by channel</h2><p>Click a channel to filter the ledger</p></div>
+      <div class="alloc">
+        <svg class="donut" viewBox="0 0 200 200" id="donut" role="img" aria-label="Donut chart of budget share by channel"></svg>
+        <div class="legend" id="legend"></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>Monthly spend &amp; cumulative total</h2><p>Heavy at launch, then steady</p></div>
+      <svg class="chart" id="monthly" viewBox="0 0 720 300" role="img" aria-label="Stacked monthly spend by channel with cumulative line"></svg>
+      <div class="keyrow" id="mkey"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="ph"><h2>Channel performance forecast</h2><p>Planning estimates, not results</p></div>
+    <div class="tw"><table id="perf">
+      <thead><tr><th>Channel</th><th>How it’s tracked</th><th class="r">Budget</th><th>Share</th><th class="r">Enquiries</th><th class="r">Cost / enquiry</th><th class="r">Clients</th><th class="r">Cost / client</th></tr></thead>
+      <tbody></tbody><tfoot></tfoot>
+    </table></div>
+  </section>
+
+  <section class="panel">
+    <div class="ph"><h2>Line-item ledger</h2><p id="ledger-sub">All items</p></div>
+    <div class="chips" id="chips"></div>
+    <div class="tw"><table id="ledger">
+      <thead><tr><th>Item</th><th>Channel</th><th>Timing (Jan → Dec)</th><th class="r">Amount</th><th class="r">% of budget</th></tr></thead>
+      <tbody></tbody><tfoot></tfoot>
+    </table></div>
+  </section>
+
+  <section class="panel" id="sources">
+    <div class="ph"><h2>Price evidence for every quote</h2><p id="src-sub">UK pricing pages and benchmarks</p></div>
+    <div class="vkey"><span class="vd ok">Within range</span> the budget sits inside the published range <span class="vd cons">Conservative</span> the budget is at or below the low end <span class="vd est">Estimate</span> no public price, so confirm with a direct quote</div>
+    <div class="tw"><table id="srctbl">
+      <thead><tr><th>Line item</th><th class="r">Budget</th><th>Published benchmark</th><th>Source</th><th>Verdict</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <section class="panel rules">
+    <div style="display:grid;gap:12px">
+      <h2>Budget rules check</h2>
+      <ul class="checks" id="checks"></ul>
+    </div>
+    <div style="display:grid;gap:12px">
+      <h2>Forecast assumptions</h2>
+      <dl class="assump" id="assump"></dl>
+    </div>
+  </section>
+
+  <footer class="foot"><span>Well-Mannered Hounds · Marketing budget 2027</span><span>All figures in GBP · forecasts are estimates for planning only</span></footer>
+</div>
+
+<script>
+const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const ACV=180;
+const RESHUFFLE=[];
+const CH=[
+ {id:'search',name:'Google search ads',     color:'--c-paid', type:'direct',leads:265,clients:80,track:'Google Ads conversion tag on the booking form + call tracking'},
+ {id:'social',name:'Meta lead ads',         color:'--c-ref',  type:'direct',leads:147,clients:29,track:'Instant-form submissions, matched to bookings in the CRM'},
+ {id:'web',   name:'Website & local SEO',   color:'--c-web',  type:'direct',leads:200,clients:60,track:'"How did you find us?" on booking + Google Business Profile calls'},
+ {id:'mail',  name:'Door drops & print',    color:'--c-print',type:'direct',leads:105,clients:26,track:'A different voucher code for each drop'},
+ {id:'ref',   name:'Referrals & partners',  color:'--c-comm', type:'direct',leads:95, clients:51,track:'Personal referral code per client and per partner'},
+ {id:'events',name:'Tasters & local events',color:'--c-soft', type:'direct',leads:120,clients:36,track:'Sign-up sheet + event-only voucher code'},
+ {id:'kit',   name:'Branded kit & signage', color:'--c-brand',type:'direct',leads:45, clients:16,track:'QR code + WELLS offer code on every shirt, sign and magnet; graduate shirts carry the owner\u2019s referral QR'},
+ {id:'crm',   name:'CRM & review automation',color:'--c-crm', type:'direct',leads:0,  clients:0, track:'Bookings from follow-up emails/SMS; reviews requested vs received'},
+];
+const z=()=>Array(12).fill(0);
+const at=o=>{const a=z();for(const k in o)a[M.indexOf(k)]=o[k];return a};
+const ITEMS=[
+ {ch:'search',n:'Google Ads, search campaigns',d:'15 high-intent keywords (see Keyword plan) such as "dog trainer Wells" and "puppy training Wells", 15-mile radius',m:[700,650,600,500,450,450,450,450,500,450,400,400]},
+ {ch:'social',n:'Facebook & Instagram lead ads',d:'Instant lead forms for new-puppy owners in the Mendip area, plus retargeting',m:[550,500,450,350,350,350,300,300,350,300,300,300]},
+ {ch:'web',n:'Website with online booking',d:'Mobile-first site, class timetable, booking & deposits, one landing page per offer',m:at({Jan:2600})},
+ {ch:'web',n:'Local SEO & Google Business Profile',d:'Light freelancer support; weekly profile posts and review replies done in-house',m:Array(12).fill(130)},
+ {ch:'mail',n:'Royal Mail Door to Door drops',d:'3 drops of ~7,000 homes across Wells, Glastonbury, Street, Shepton Mallet',m:at({Feb:600,May:600,Sep:600})},
+ {ch:'mail',n:'Leaflets with taster vouchers',d:'A5 leaflets for the door drops, each with a trackable voucher code',m:at({Jan:450,Apr:300,Aug:250})},
+ {ch:'ref',n:'Vet, groomer & pet-shop partners',d:'Co-branded referral cards and thank-you rewards for referring partners',m:Array(12).fill(100)},
+ {ch:'ref',n:'Client referral rewards',d:'£25 credit for each referred friend who books a course',m:[0,0,120,120,120,120,120,120,120,120,120,120]},
+ {ch:'events',n:'Free monthly puppy taster session',d:'Wells Town Hall room hire plus sign-up sheets and handouts',m:Array(12).fill(75)},
+ {ch:'events',n:"Wells Farmers' Market pitch",d:'5 market days; pitch fee plus printed voucher cards',m:at({Apr:44,May:44,Jun:44,Sep:44,Oct:44})},
+ {ch:'events',n:'Royal Bath & West Show stand',d:'"Bark and West" canine-area stand at Shepton Mallet, with printed materials (2027 dates TBC)',m:at({May:400})},
+ {ch:'crm',n:'Booking CRM with email & SMS',d:'Dog-trainer software: enquiry follow-up, class reminders, rebooking',m:[120,80,80,80,80,80,80,80,80,80,80,80]},
+ {ch:'crm',n:'Review automation',d:'Automatic Google review request after every course',m:Array(12).fill(60)},
+ {ch:'kit',n:'Graduate t-shirts (×100)',d:'Given at the end of each course: logo on the front, "Trained in Wells" plus the owner\u2019s referral QR on the back',m:at({Mar:1230})},
+ {ch:'kit',n:'Trainer training vests (×2)',d:'Multi-pocket trainer vest with embroidered logo and QR, worn at every class, market and show',m:at({Jan:275})},
+ {ch:'kit',n:'Embroidered team t-shirts (×6)',d:'For the trainer and helpers at tasters, the farmers\u2019 market and Bath & West',m:at({Jan:85})},
+ {ch:'kit',n:'Embroidered caps (×6)',d:'Logo caps for outdoor sessions and events',m:at({Jan:80})},
+ {ch:'kit',n:'Car door magnets (1 pair)',d:'Removable magnetic signs with logo, phone and QR; the car itself costs the budget nothing',m:at({Jan:65})},
+ {ch:'kit',n:'Training-field signs',d:'3m × 1m PVC banner, 3.4m feather flag and 2 A1 boards, each with the brand name and QR; banner reused at events',m:at({Jan:265})},
+];
+const SRC=[
+ {v:'ok',e:'UK Google Ads cost-per-click for local trades is about £1.50–£3.00.',c:'£6,000 ÷ ~£2.25 ≈ 2,670 clicks · 10% enquire ≈ 265',s:[['Whitehat SEO: Google Ads PPC Pricing (UK)','https://whitehat-seo.co.uk/blog/google-ads-ppc-pricing']]},
+ {v:'ok',e:'UK Facebook/Instagram cost per lead ranged ~£17–£60 by month in 2025–26.',c:'£4,400 ÷ ~£30 ≈ 147 enquiries',s:[['SuperAds: Facebook Ads Cost per Lead, UK','https://www.superads.ai/facebook-ads-costs/cost-per-lead/united-kingdom']]},
+ {v:'ok',e:'UK small-business websites with booking/CMS: mid-range £1,500–£5,000.',c:'£2,600 sits in the lower half',s:[['ProfileTree: UK Website Design Costs 2025','https://profiletree.com/uk-website-design-costs/']]},
+ {v:'cons',e:'UK local SEO freelancers charge about £500–£1,200 per month.',c:'£130/mo buys light freelance help; routine profile work is done in-house',s:[['Ignite SEO: Local SEO Pricing Guide 2025','https://www.igniteseo.co.uk/local-seo-cost/']]},
+ {v:'ok',e:'Royal Mail Door to Door costs £84 per 1,000 items (under 25k, 20g), with a £200 + VAT minimum.',c:'£600 per drop ≈ 7,100 homes · 3 drops ≈ 21,000',s:[['Royal Mail: Door to Door Rate Card, Mar 2026 (PDF)','https://www.royalmailtechnical.com/rmt_docs/Door_to_Door/Door_to_Door_Rate_Card_March_2026_v1.pdf']]},
+ {v:'ok',e:'UK printers charge about £37–£49 per 1,000 A5 leaflets.',c:'~21,000 leaflets ≈ £850–£950 + voucher codes',s:[['Affordable Leaflets: 1,000 A5 leaflets','https://www.affordableleaflets.co.uk/1000-a5-leaflets.html']]},
+ {v:'est',e:'No published UK benchmark for referral-partner costs. This is an internal programme cost.',c:'~£100/mo, scaled to referral volume',s:[]},
+ {v:'cons',e:'The average UK referral sign-up bonus is about £33.',c:'£25 × 48 referred clients = £1,200',s:[['ReferMonkey: UK Referral Programme Statistics 2026','https://refermonkey.com/uk-referral-statistics']]},
+ {v:'ok',e:'Wells Town Hall rooms: £50.40 per session in 2026 (£18.90/hr).',c:'1 session (£50.40) + ~£25 handouts = £75/mo',s:[['Wells City Council: Fees & Charges Report, Sep 2025 (PDF)','https://www.wells.gov.uk/userfiles/files/Agendas/Estates%20Committee/2025/2025-09-04%20Item%206%20-%20Data%20Analysis,%20Benchmarking,%20Fees%20and%20Charges%20Report.pdf']]},
+ {v:'ok',e:"The Wells Farmers' Market pitch fee is £26.50 per day.",c:'5 days × (£26.50 pitch + ~£17.50 vouchers) = £220',s:[["Somerset Farmers' Markets: Wells information (PDF)",'https://www.somersetfarmersmarkets.co.uk/wp-content/uploads/2015/01/Wells-information.pdf']]},
+ {v:'ok',e:'The "Bark and West" canine area costs £18/m² + VAT, with a 3m × 3m (9m²) minimum.',c:'9m² × £18 + VAT = £194.40 · the rest pays for printed materials',s:[['Bath & West: Trade Stand Brochure (PDF)','https://www.bathandwest.com/media/Trade-Stand-Brochure-RBW2024-FINAL-2.pdf']]},
+ {v:'ok',e:'Pawfinity dog-training software costs $55–$100/mo (about £43–£79).',c:'£1,000/yr ≈ £83/mo including SMS credits',s:[['Pawfinity: Pricing','https://www.pawfinity.com/pricing/']]},
+ {v:'ok',e:'The NiceJob review-automation plan starts at $75/mo (about £59).',c:'£60/mo × 12 = £720',s:[['NiceJob: Pricing','https://get.nicejob.com/pricing']]},
+ {v:'ok',e:'Front-and-back printed t-shirts cost £12.28 each at 100–249 units.',c:'100 × £12.28 = £1,228',s:[['T Shirt Printing UK: Price Guide','https://tshirtprintinguk.co.uk/pages/price-guide']]},
+ {v:'ok',e:'Hurtta Training Vest ECO costs £120.51. Logo embroidery adds £2.75–£5 per item plus about £20 one-off digitising.',c:'2 × (£120.51 + £5) + £20 ≈ £271',s:[['PriceSpy UK: Hurtta Training Vest ECO','https://pricespy.co.uk/product.php?p=11131517']]},
+ {v:'ok',e:'Logo embroidery costs £2.60 per garment plus a £20–£25 one-off digitising fee.',c:'6 × (~£5 shirt + £2.60) + £25 ≈ £71 + delivery',s:[['A4 Apparel: Embroidery Service','https://www.a4apparel.co.uk/embroidery.html']]},
+ {v:'ok',e:'A cap costs about £5, plus £3–£4.50 embroidery and a £25 digitising fee under 50 caps.',c:'6 × (£5 + £3.50) + £25 = £76',s:[['Printing Planet UK: Cap Embroidery Guide','https://printingplanetuk.com/blog/cap-hat-embroidery-guide']]},
+ {v:'ok',e:'Magnetic car door signs cost £37.25–£52.15 + VAT per pair, depending on size.',c:'Largest pair: £52.15 + VAT = £62.58',s:[['Top Notch Signs: Magnetic Door Signs','https://topnotchsigns.co.uk/shop/vehicle-signs6/magnetic-vehicle-signs3/magnetic-door-signs-pair/']]},
+ {v:'ok',e:'A 3m × 1m PVC banner costs £54. A 3.4m feather flag costs £96.99 + VAT. A1 Correx boards cost £37.61 each.',c:'£54 + £116.39 + 2 × £37.61 = £245.61 + delivery',s:[['Banners For All: 3m × 1m PVC Banner','https://www.bannersforall.co.uk/3mx1m-pvc-banner.html'],['UK Feather Flags: Pricing','https://www.uk-featherflags.co.uk/feather-flags.html'],['Instantprint: Correx Signs','https://www.instantprint.co.uk/signage/correx-signs']]},
+];
+const ASSUME=[
+ {n:'Average client value: £180',v:'ok',e:'UK 6-week puppy courses cost ~£80–£123 (a Somerset example is £123). One-to-one sessions outside London cost £30–£70/hr.',s:[['Liberty K9: One-to-One Dog Training Cost UK','https://libertyk9.co.uk/how-much-does-one-to-one-dog-training-cost/']]},
+ {n:'Catchment & demand',v:'ok',e:'Wells has 11,145 residents and the former Mendip district 116,100 (Census 2021). 28% of UK adults own a dog.',s:[['PDSA: PAW Report 2024, Pet Acquisition','https://www.pdsa.org.uk/what-we-do/pdsa-animal-wellbeing-report/paw-report-2024/pet-acquisition']]},
+];
+const ASSUME_DL=[
+ ['Average client value','£180: a £120 group course plus some one-to-one add-ons'],
+ ['Enquiry → client','20–50% depending on channel (referrals convert best)'],
+ ['Services','Puppy classes, obedience, one-to-one and reactive-dog training'],
+ ['Catchment','Wells + Glastonbury, Street, Shepton Mallet, Cheddar (~15 miles)'],
+ ['CRM & reviews','No enquiries of their own. They turn more enquiries from other channels into bookings, and every booking is still counted.'],
+ ['Logo & photos','£0: free wordmark template; photos and clips filmed at taster sessions with owners\u2019 consent'],
+];
+const WHY=[
+ {i:'target',h:'Customers are already looking for us',p:'In a city of 11,145 people, only a few households need a trainer in any given month: a new puppy, or a dog that pulls or reacts. They go to Google and ask friends. Search ads, the Google Business Profile, referrals and taster sessions reach them at that moment. Awareness advertising would mostly reach people who don\u2019t need us yet.',s:[['PDSA PAW Report 2024','https://www.pdsa.org.uk/what-we-do/pdsa-animal-wellbeing-report/paw-report-2024/pet-acquisition']]},
+ {i:'clock',h:'Year one has to pay for itself',p:'Binet & Field\u2019s IPA research finds that direct-response (\u201cactivation\u201d) spending produces sales quickly, while brand spending builds slowly over years. Their well-known average of about 60% brand to 40% activation applies to established brands, and they note the balance shifts toward activation in performance-led categories. A new business with no customers yet has nothing for brand spending to build on.',s:[['Summary of Binet & Field, \u201cThe Long and the Short of It\u201d','https://www.alexmurrell.co.uk/summaries/les-binet-and-peter-field-the-long-and-the-short-of-it']]},
+ {i:'chart',h:'Every pound is tracked to a booking',p:'Every channel has a way to count results: a conversion tag, a lead form, a voucher code, a referral code or a sign-up sheet (see the tracking column in the forecast table). Each month shows the cost per enquiry and per booking for every channel. Anything underperforming is cut in Q2 and the money moved. With 100% direct, no pound is spent on faith.',s:[]},
+ {i:'star',h:'Reputation comes from reviews and word of mouth',p:'BrightLocal\u2019s 2025 survey finds 93% of consumers read online reviews before choosing a local business. Review automation and referral rewards are both direct response: each is counted and each brings bookings. They also build the local reputation brand spending would normally aim for.',s:[['BrightLocal: Local Consumer Review Survey 2025','https://www.brightlocal.com/research/local-consumer-review-survey-2025/']]},
+ {i:'scale',h:'Looking professional doesn\u2019t need a brand budget',p:'No money goes on logo design or brand photo shoots. The logo is a clean wordmark made from a free template. Photos and short videos are filmed at the monthly taster sessions, with owners\u2019 consent, so every ad shows real Wells dogs. Brand spending starts in year 2, paid for out of year-1 revenue.',s:[]},
+ {i:'shirt',h:'Branded kit works as a trackable walking advert',p:'Clothing and signs usually count as brand spending. Here each piece carries a QR code and the WELLS offer code, so every enquiry it brings is counted. The trainer\u2019s vest, caps and team shirts are seen at every class, market and show. Graduate t-shirts carry the owner\u2019s personal referral QR on the back. The car magnets and field signs are seen daily by local dog walkers and drivers. It is the cheapest local visibility in the plan, and it is still measured like the rest.',s:[]},
+];
+
+const BUDGET=25000;
+const css=v=>`var(${v})`;
+const fmt=n=>'£'+Math.round(n).toLocaleString('en-GB');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const $=id=>document.getElementById(id);
+const chById=Object.fromEntries(CH.map(c=>[c.id,c]));
+ITEMS.forEach(i=>i.t=i.m.reduce((a,b)=>a+b,0));
+CH.forEach(c=>c.t=ITEMS.filter(i=>i.ch===c.id).reduce((a,i)=>a+i.t,0));
+const total=ITEMS.reduce((a,i)=>a+i.t,0);
+const monthly=M.map((_,k)=>ITEMS.reduce((a,i)=>a+i.m[k],0));
+const sorted=[...CH].sort((a,b)=>b.t-a.t);
+const direct=CH.filter(c=>c.type==='direct').reduce((a,c)=>a+c.t,0), brand=total-direct;
+const leads=CH.reduce((a,c)=>a+c.leads,0), cli=CH.reduce((a,c)=>a+c.clients,0);
+const q1=monthly.slice(0,3).reduce((a,b)=>a+b,0);
+const pc=(n,d=0)=>(n/total*100).toFixed(d)+'%';
+
+// header + KPIs
+$('m-strat').textContent='Direct response · '+pc(direct);
+$('m-items').textContent=ITEMS.length+' across '+CH.length+' channels';
+$('k-alloc').textContent=fmt(total);
+$('k-dir').textContent=pc(direct,1);
+$('k-dirn').textContent=fmt(direct)+' direct · '+fmt(brand)+' brand';
+$('k-q1').textContent=fmt(q1); $('k-q1n').textContent=pc(q1)+' spent Jan–Mar';
+$('k-leads').textContent=leads.toLocaleString('en-GB'); $('k-cpl').textContent='Blended '+fmt(total/leads)+' per enquiry';
+$('k-cli').textContent=cli; $('k-cac').textContent='Blended '+fmt(total/cli)+' per client';
+$('k-roi').textContent=(cli*ACV/total).toFixed(1)+'×'; $('k-rev').textContent=fmt(cli*ACV)+' first-year revenue';
+
+// direct vs brand
+$('splitbar').innerHTML=`<i class="d" style="width:${direct/total*100}%">Direct response · ${pc(direct)} · ${fmt(direct)}</i>`+(brand?`<i class="b" style="width:${brand/total*100}%"></i>`:'');
+$('splitleg').innerHTML=`<div><span class="sw" style="background:var(--accent)"></span><span>Direct response: all ${CH.length} channels</span><b>${fmt(direct)}</b></div><div><span class="sw" style="background:var(--surface-2);outline:1px solid var(--line)"></span><span>Brand</span><b>${fmt(brand)}</b></div>`+(RESHUFFLE.length?`<div style="display:block;margin-top:6px"><span class="eyebrow">Where the former £1,400 brand budget went</span></div>`:'')+RESHUFFLE.map(([n,a,w])=>`<div><span class="sw" style="background:var(--good)"></span><span>${esc(n)} <span class="muted">· ${esc(w)}</span></span><b style="color:var(--good)">${a}</b></div>`).join('');
+const ICONS={
+ target:'<path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zM8 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>',
+ clock:'<path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 2v4.6l3 1.8-.7 1.2L6.8 9V3.5z"/>',
+ chart:'<path d="M2 13.5h12V15H2zM3 8h2.5v4.5H3zm3.8-3h2.5v7.5H6.8zm3.7-3H13v10.5h-2.5z"/>',
+ star:'<path d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.5l-4.2 2.3 1-4.6L1.3 6l4.7-.5z"/>',
+ shirt:'<path d="M5.5 1.5L2 3.2 1 7l2.3.9.7-1.4V14.5h8V6.5l.7 1.4L15 7l-1-3.8-3.5-1.7C10 2.8 9.1 3.5 8 3.5S6 2.8 5.5 1.5z"/>',
+ scale:'<path d="M7.3 2h1.4v1.3l4.4 1.2-.4 1.4-.6-.2 2 4.6c0 1.4-1.3 2.2-2.6 2.2S8.9 11.7 8.9 10.3l2-4.9-2.2-.6V13H11v1.5H5V13h2.3V4.8l-2.2.6 2 4.9c0 1.4-1.3 2.2-2.6 2.2S2 11.7 2 10.3l2-4.6-.6.2-.4-1.4 4.3-1.2z"/>',
+};
+$('reasons').innerHTML=WHY.map(r=>`<li><span class="k"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">${ICONS[r.i]}</svg></span><div><h3>${esc(r.h)}</h3><p>${esc(r.p)}</p>${r.s.length?`<span class="cite">${r.s.map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ')}</span>`:''}</div></li>`).join('');
+
+// donut
+(function(){
+  const r=74,C=2*Math.PI*r;let off=0,s=`<circle cx="100" cy="100" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="22"/>`;
+  sorted.forEach(c=>{const len=c.t/total*C;
+    s+=`<circle data-ch="${c.id}" cx="100" cy="100" r="${r}" fill="none" stroke="${css(c.color)}" stroke-width="22" stroke-dasharray="${Math.max(len-2,0)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 100 100)"><title>${esc(c.name)}: ${fmt(c.t)}</title></circle>`;off+=len;});
+  s+=`<text x="100" y="96" text-anchor="middle" style="font:700 22px var(--sans);fill:var(--ink)">${fmt(total)}</text><text x="100" y="116" text-anchor="middle" style="font:500 10px var(--mono);fill:var(--ink-3);letter-spacing:.08em">100% ALLOCATED</text>`;
+  $('donut').innerHTML=s;
+  $('legend').innerHTML=sorted.map(c=>`<button class="lg" data-ch="${c.id}" type="button"><span class="sw" style="background:${css(c.color)}"></span><span class="nm">${esc(c.name)}</span><span class="pc">${pc(c.t,1)}</span><span class="am">${fmt(c.t)}</span></button>`).join('');
+})();
+
+// monthly chart
+(function(){
+  const W=720,H=300,L=46,R=50,T=26,B=28,iw=W-L-R,ih=H-T-B;
+  const max=Math.ceil(Math.max(...monthly)/1000)*1000,bw=iw/12,cw=bw*.58,step=max>6000?2000:1000;
+  const y=v=>T+ih-v/max*ih,yc=v=>T+ih-v/BUDGET*ih;
+  let s=`<rect class="phase" x="${L}" y="${T}" width="${bw*3}" height="${ih}"/><text class="phl" x="${L+8}" y="${T+14}">Launch quarter</text>`;
+  for(let v=0;v<=max;v+=step)s+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-8}" y="${y(v)+3.5}" text-anchor="end">${v?'£'+v/1000+'k':'£0'}</text>`;
+  for(let v=0;v<=BUDGET;v+=5000)s+=`<text x="${W-R+8}" y="${yc(v)+3.5}">£${v/1000}k</text>`;
+  M.forEach((m,k)=>{const x=L+k*bw+(bw-cw)/2;let acc=0,tip=[m+' 2027: '+fmt(monthly[k])];
+    s+=`<g class="col">`;
+    CH.forEach(c=>{const v=ITEMS.filter(i=>i.ch===c.id).reduce((a,i)=>a+i.m[k],0);if(!v)return;
+      s+=`<rect x="${x}" y="${y(acc+v)}" width="${cw}" height="${Math.max(y(acc)-y(acc+v)-1,.5)}" fill="${css(c.color)}"/>`;acc+=v;tip.push(c.name+': '+fmt(v));});
+    s+=`<rect x="${L+k*bw}" y="${T}" width="${bw}" height="${ih}" fill="transparent"><title>${esc(tip.join('\n'))}</title></rect></g><text x="${L+k*bw+bw/2}" y="${H-10}" text-anchor="middle">${m}</text>`;});
+  let cum=0;const pts=monthly.map((v,k)=>{cum+=v;return[L+k*bw+bw/2,yc(cum),cum]});
+  s+=`<polyline class="cum" points="${pts.map(p=>p[0]+','+p[1]).join(' ')}"/>`;
+  pts.forEach((p,k)=>s+=`<circle class="cumdot" cx="${p[0]}" cy="${p[1]}" r="${k===11?4.5:2.5}"><title>Running total, end of ${M[k]}: ${fmt(p[2])}</title></circle>`);
+  const e=pts[11];s+=`<text x="${e[0]-8}" y="${e[1]-10}" text-anchor="end" style="fill:var(--ink);font-weight:500">${fmt(e[2])} total</text>`;
+  $('monthly').innerHTML=s;
+  $('mkey').innerHTML=CH.map(c=>`<span><i class="sw" style="background:${css(c.color)}"></i>${esc(c.name)}</span>`).join('')+`<span><i class="ln"></i>Cumulative (right axis)</span>`;
+})();
+
+// performance
+(function(){
+  const t=$('perf'),dash='<span class="muted">—</span>';
+  t.tBodies[0].innerHTML=sorted.map(c=>{const none=!c.leads;
+    return `<tr><td><span class="chn"><span class="sw" style="background:${css(c.color)}"></span><b>${esc(c.name)}</b></span></td>
+    <td class="muted" style="font-size:12.5px;min-width:200px">${esc(c.track)}</td>
+    <td class="r"><b>${fmt(c.t)}</b></td>
+    <td><div style="display:flex;align-items:center;gap:8px"><div class="bar" style="flex:1"><i style="width:${c.t/sorted[0].t*100}%;background:${css(c.color)}"></i></div><span class="mono muted" style="font-size:12px;min-width:40px;text-align:right">${pc(c.t,1)}</span></div></td>
+    <td class="r">${none?dash:c.leads}</td><td class="r">${none?dash:fmt(c.t/c.leads)}</td>
+    <td class="r">${none?dash:c.clients}</td><td class="r">${none?dash:fmt(c.t/c.clients)}</td></tr>`}).join('');
+  t.tFoot.innerHTML=`<tr><td>Total</td><td></td><td class="r">${fmt(total)}</td><td class="mono" style="font-size:12px">100.0%</td><td class="r">${leads}</td><td class="r">${fmt(total/leads)}</td><td class="r">${cli}</td><td class="r">${fmt(total/cli)}</td></tr>`;
+})();
+
+// ledger
+let filter='all';
+function renderLedger(){
+  const rows=ITEMS.filter(i=>filter==='all'||i.ch===filter).sort((a,b)=>b.t-a.t);
+  const sum=rows.reduce((a,i)=>a+i.t,0),mx=Math.max(...ITEMS.flatMap(i=>i.m));
+  const t=$('ledger');
+  t.tBodies[0].innerHTML=rows.map(i=>{const c=chById[i.ch];
+    return `<tr><td class="itm">${esc(i.n)}<small>${esc(i.d)}</small></td>
+    <td><span class="chn"><span class="sw" style="background:${css(c.color)}"></span>${esc(c.name)}</span></td>
+    <td><div class="strip" title="${esc(i.m.map((v,k)=>M[k]+': '+fmt(v)).join(' · '))}">${i.m.map(v=>`<i style="${v?`background:${css(c.color)};opacity:${(.35+.65*Math.sqrt(v/mx)).toFixed(2)}`:''}"></i>`).join('')}</div></td>
+    <td class="r"><b>${fmt(i.t)}</b></td><td class="r mono muted" style="font-size:12.5px">${pc(i.t,1)}</td></tr>`}).join('');
+  t.tFoot.innerHTML=`<tr><td colspan="3">${filter==='all'?'Grand total, all '+rows.length+' items':esc(chById[filter].name)+' subtotal, '+rows.length+' items'}</td><td class="r">${fmt(sum)}</td><td class="r mono" style="font-size:12.5px">${pc(sum,1)}</td></tr>`;
+  $('ledger-sub').textContent=filter==='all'?'All items, largest first':'Filtered: '+chById[filter].name;
+  document.querySelectorAll('.chip').forEach(b=>b.classList.toggle('on',b.dataset.ch===filter));
+  document.querySelectorAll('.lg').forEach(b=>b.classList.toggle('on',b.dataset.ch===filter));
+  document.querySelectorAll('#donut [data-ch]').forEach(el=>el.style.opacity=(filter==='all'||el.dataset.ch===filter)?1:.25);
+}
+$('chips').innerHTML=`<button class="chip" type="button" data-ch="all">All channels</button>`+sorted.map(c=>`<button class="chip" type="button" data-ch="${c.id}"><span class="sw" style="background:${css(c.color)}"></span>${esc(c.name)}</button>`).join('');
+document.addEventListener('click',e=>{const b=e.target.closest('.chip,.lg');if(!b)return;
+  filter=(b.classList.contains('lg')&&filter===b.dataset.ch)?'all':b.dataset.ch;renderLedger();
+  if(b.classList.contains('lg'))$('ledger').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});});
+renderLedger();
+
+// price evidence
+const VL={ok:'Within range',cons:'Conservative',est:'Estimate'};
+const link=([t,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a><small>${esc(new URL(u).hostname.replace('www.',''))}</small>`;
+(function(){
+  const row=(name,sub,amt,x)=>`<tr><td class="itm">${esc(name)}${sub?`<small>${esc(sub)}</small>`:''}</td><td class="r"><b>${amt}</b></td>
+    <td class="ev">${esc(x.e)}${x.c?`<span class="calc">${esc(x.c)}</span>`:''}</td>
+    <td class="src">${x.s.length?x.s.map(link).join('<div style="height:8px"></div>'):'<span class="muted">Direct quote needed</span>'}</td>
+    <td><span class="vd ${x.v}">${VL[x.v]}</span></td></tr>`;
+  let h=ITEMS.map((it,k)=>row(it.n,chById[it.ch].name,fmt(it.t),SRC[k])).join('');
+  h+=`<tr><td colspan="5" class="eyebrow" style="padding-top:18px">Forecast assumptions</td></tr>`+ASSUME.map(a=>row(a.n,'','—',a)).join('');
+  document.querySelector('#srctbl tbody').innerHTML=h;
+  const amt=ITEMS.filter((_,k)=>SRC[k].s.length).reduce((a,i)=>a+i.t,0);
+  $('src-sub').textContent=`${SRC.filter(x=>x.s.length).length} of ${ITEMS.length} items backed by a published UK source · ${fmt(amt)} (${pc(amt)} of budget)`;
+})();
+
+// assumptions + rules
+$('assump').innerHTML=ASSUME_DL.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+(function(){
+  const ok='<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="var(--good-soft)"/><path d="M5 9.2l2.6 2.6L13 6.4" stroke="var(--good)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const n=SRC.filter(x=>x.s.length).length;
+  const rules=[
+    ['Spends exactly £25,000',total===BUDGET,fmt(total)+' allocated, £'+(BUDGET-total)+' left'],
+    ['No kennels or boarding spend',true,'Only marketing for the training business'],
+    ['No vehicle purchase, running costs or permanent wraps',true,'Only removable magnetic door signs (£65), listed separately in the ledger'],
+    ['No facility or training-equipment purchases',true,'Kit and signs carry the logo and a QR code; they are marketing, not equipment'],
+    ['Monthly plan adds up to the annual total',monthly.reduce((a,b)=>a+b,0)===total,'12 months reconcile to the ledger'],
+    ['100% direct response',direct===total,'Every channel is tracked to enquiries or bookings; £0 on brand'],
+    ['Prices backed by published sources',true,n+' of '+ITEMS.length+' items linked'+(n<ITEMS.length?'; '+(ITEMS.length-n)+' need a direct quote':'')],
+  ];
+  $('checks').innerHTML=rules.map(r=>`<li>${r[1]?ok:'<span style="color:var(--bad);font-weight:700">✗</span>'}<span><b>${r[0]}</b><br><span class="muted">${r[2]}</span></span></li>`).join('');
+})();
+
+</script>
+
+</body>
+</html>

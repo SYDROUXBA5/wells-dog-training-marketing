@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Well-Mannered Hounds Keywords</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --surface-2:#EDF1EF; --ink:#12201B; --ink-2:#4A5A54; --ink-3:#7C8A85;
+  --line:#DCE3E0; --accent:#1C5C4B; --accent-soft:#DDEBE6; --good:#1F8A5B; --good-soft:#DDF2E7; --warn:#B26A12; --warn-soft:#F7EBDA; --bad:#B8322A; --bad-soft:#F8E1DE;
+  --c-paid:#2F6FDB; --c-web:#12968A; --c-brand:#7456E8; --c-comm:#D98521; --c-ref:#CF3F74; --c-print:#6E8B1F; --c-soft:#5F6F86; --c-crm:#9C5B3A;
+  --shadow:0 1px 2px rgba(18,32,27,.05),0 8px 24px -12px rgba(18,32,27,.12);
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0E1513; --surface:#151F1C; --surface-2:#1B2723; --ink:#E7EEEB; --ink-2:#A9B7B2; --ink-3:#7A8A84;
+  --line:#26332F; --accent:#6FC7AE; --accent-soft:#1D3530; --good:#5FD39A; --good-soft:#173328; --warn:#E9A64B; --warn-soft:#3A2B17; --bad:#F07A6A; --bad-soft:#3A1E1B;
+  --c-paid:#5B8FF0; --c-web:#2DBDAF; --c-brand:#9A83F5; --c-comm:#EDA14A; --c-ref:#EC6A98; --c-print:#9BBB3E; --c-soft:#8C9BB2; --c-crm:#D6906A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1513; --surface:#151F1C; --surface-2:#1B2723; --ink:#E7EEEB; --ink-2:#A9B7B2; --ink-3:#7A8A84;
+  --line:#26332F; --accent:#6FC7AE; --accent-soft:#1D3530; --good:#5FD39A; --good-soft:#173328; --warn:#E9A64B; --warn-soft:#3A2B17; --bad:#F07A6A; --bad-soft:#3A1E1B;
+  --c-paid:#5B8FF0; --c-web:#2DBDAF; --c-brand:#9A83F5; --c-comm:#EDA14A; --c-ref:#EC6A98; --c-print:#9BBB3E; --c-soft:#8C9BB2; --c-crm:#D6906A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:28px 56px;font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+h1,h2{margin:0;text-wrap:balance}
+h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+h2{font-size:17px;font-weight:700;letter-spacing:-.005em}
+p{margin:0}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.brand{display:grid;gap:8px}
+.mark{display:flex;align-items:center;gap:10px}
+.mark svg{flex:none}
+.sub{color:var(--ink-2);max-width:62ch}
+.meta{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:13px}
+.meta dt{color:var(--ink-3)} .meta dd{margin:0;font-weight:600;text-align:right}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}
+.pill.ok{background:var(--good-soft);color:var(--good)}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.kpi{padding:18px 20px;display:grid;gap:6px;align-content:start;border-left:1px solid var(--line)}
+.kpi:first-child{border-left:0}
+.kpi .v{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.kpi .n{font-size:12.5px;color:var(--ink-2)}
+.kpi.hero .v{color:var(--accent)}
+.meter{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.meter i{display:block;height:100%;width:100%;background:var(--good)}
+@media (max-width:980px){.kpis{grid-template-columns:repeat(3,1fr)}.kpi:nth-child(4){border-left:0}.kpi:nth-child(n+4){border-top:1px solid var(--line)}}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}.kpi{border-left:1px solid var(--line)!important;border-top:1px solid var(--line)}.kpi:nth-child(odd){border-left:0!important}.kpi:nth-child(-n+2){border-top:0}}
+
+/* panels */
+.grid2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px;align-content:start;min-width:0}
+.ph{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.ph p{font-size:13px;color:var(--ink-3)}
+
+/* allocation */
+.alloc{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center}
+@media (max-width:460px){.alloc{grid-template-columns:1fr;justify-items:center}}
+.donut{width:180px;height:180px;max-width:100%}
+.legend{display:grid;gap:2px;width:100%}
+.lg{display:grid;grid-template-columns:10px 1fr auto auto;gap:10px;align-items:center;padding:7px 8px;border-radius:8px;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;width:100%}
+.lg:hover,.lg.on{background:var(--surface-2)}
+.lg:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sw{width:10px;height:10px;border-radius:3px}
+.lg .nm{font-size:13.5px;font-weight:500}
+.lg .pc{font-size:12px;color:var(--ink-3);font-family:var(--mono)}
+.lg .am{font-size:13.5px;font-weight:600;min-width:62px;text-align:right}
+
+/* chart */
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--ink-3);font-family:var(--mono);font-size:10.5px}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .cum{fill:none;stroke:var(--ink);stroke-width:1.75}
+.chart .cumdot{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}
+.chart .col:hover rect{opacity:.85}
+.chart .phase{fill:var(--surface-2)}
+.chart .phl{fill:var(--ink-2);font-family:var(--sans);font-size:11px;font-weight:600}
+.keyrow{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink-2)}
+.keyrow span{display:inline-flex;align-items:center;gap:6px}
+.keyrow .ln{width:14px;height:2px;background:var(--ink)}
+
+/* tables */
+.tw{overflow-x:auto;margin-inline:-20px;padding-inline:20px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+th.r,td.r{text-align:right}
+tbody tr:hover td{background:var(--surface-2)}
+tfoot td{font-weight:700;border-bottom:0;border-top:2px solid var(--ink)}
+.chn{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.bar{height:6px;border-radius:3px;background:var(--surface-2);min-width:70px;overflow:hidden}
+.bar i{display:block;height:100%}
+.tag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.tag.found{background:var(--accent-soft);color:var(--accent)}
+.muted{color:var(--ink-3)}
+.itm{font-weight:600}
+.itm small{display:block;font-weight:400;color:var(--ink-3);font-size:12.5px}
+
+/* month strip in ledger */
+.strip{display:grid;grid-template-columns:repeat(12,9px);gap:2px}
+.strip i{height:14px;border-radius:2px;background:var(--surface-2)}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* compliance */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.checks{display:grid;gap:8px;margin:0;padding:0;list-style:none;font-size:13.5px}
+.checks li{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start}
+.checks svg{margin-top:2px}
+.assump{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;margin:0}
+.assump dt{color:var(--ink-3)} .assump dd{margin:0;font-weight:600}
+.vd{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.vd.ok{background:var(--good-soft);color:var(--good)}
+.vd.cons{background:var(--accent-soft);color:var(--accent)}
+.vd.est{background:var(--surface-2);color:var(--warn)}
+.vkey{font-size:12.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.ev{min-width:260px;max-width:46ch;color:var(--ink-2)}
+.ev .calc{display:block;margin-top:4px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.src a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.src a:hover{text-decoration-thickness:2px}
+.src small{display:block;color:var(--ink-3);font-size:11.5px;word-break:break-all;max-width:30ch}
+#srctbl td{vertical-align:top}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pl-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 16px}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.tog input{width:16px;height:16px;accent-color:var(--accent)}
+.sliders{display:grid;gap:4px}
+.sl{display:grid;grid-template-columns:minmax(150px,210px) 1fr 104px 84px;gap:8px 16px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.sl:last-child{border-bottom:0}
+.sl .nm{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600}
+.sl input[type=range]{width:100%;min-width:0;height:22px;margin:0}
+.num{width:100%;font:500 13.5px var(--mono);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:6px 8px;text-align:right}
+.num:focus-visible,.btn:focus-visible,.tog input:focus-visible,input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dl{font:500 12px var(--mono);text-align:right;color:var(--ink-3)}
+.dl.up{color:var(--good)} .dl.dn{color:var(--warn)}
+@media (max-width:620px){.sl{grid-template-columns:1fr 104px 70px}.sl input[type=range]{grid-column:1/-1;grid-row:2}}
+.pl-foot{display:grid;gap:10px}
+.stack{position:relative;height:14px;border-radius:7px;background:var(--surface-2);display:flex;overflow:hidden}
+.stack i{height:100%;transition:width .25s ease}
+.stack .cap{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.pl-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:13px}
+.pl-row .sp{flex:1}
+.btn{font:inherit;font-size:13px;font-weight:600;border-radius:8px;padding:7px 14px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--ink-2);border-color:var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.acv{display:grid;grid-template-columns:auto minmax(120px,280px) auto 1fr;gap:8px 14px;align-items:center;font-size:13px;padding-top:12px;border-top:1px solid var(--line)}
+.acv label{font-weight:600}
+.acv output{font:600 14px var(--mono);min-width:48px}
+@media (max-width:620px){.acv{grid-template-columns:1fr auto}.acv input{grid-column:1/-1}.acv .muted{grid-column:1/-1}}
+#tip{position:fixed;z-index:10;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.45;padding:8px 10px;border-radius:8px;white-space:pre-line;max-width:260px;box-shadow:var(--shadow)}
+#tip b{font-weight:700}
+tr.item{cursor:pointer}
+tr.item:focus-visible td{outline:2px solid var(--accent);outline-offset:-2px}
+.chev{display:inline-block;width:8px;margin-right:6px;color:var(--ink-3);transition:transform .15s}
+tr.item[aria-expanded="true"] .chev{transform:rotate(90deg)}
+tr.det td{background:var(--surface-2)}
+.mgrid{display:grid;grid-template-columns:repeat(12,minmax(58px,1fr));gap:6px}
+.mgrid div{display:grid;gap:2px;font-size:12px}
+.mgrid span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);text-transform:uppercase}
+@media (max-width:620px){.mgrid{grid-template-columns:repeat(4,1fr)}}
+.chg{font:500 11.5px var(--mono);display:block}
+.chg.up{color:var(--good)} .chg.dn{color:var(--warn)}
+.chart .col{cursor:default}
+.foot{font-size:12px;color:var(--ink-3);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+@media (prefers-reduced-motion:no-preference){.meter i,.bar i{transition:width .6s ease}}
+/* keyword plan */
+.kwstats{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:13px;color:var(--ink-2)}
+.kwstats b{display:block;font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.kwkey{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:12.5px;color:var(--ink-3)}
+.kw{display:inline-flex;align-items:center;gap:4px;font:500 12.5px var(--mono);padding:4px 9px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);white-space:nowrap}
+.kw.e{border-color:color-mix(in srgb,var(--c-paid) 45%,var(--line));background:color-mix(in srgb,var(--c-paid) 7%,var(--surface))}
+.kw.ac{border-color:var(--good);color:var(--ink)}
+.kw.ac svg{color:var(--good)}
+.kw.neg{text-decoration:line-through;text-decoration-color:var(--bad);color:var(--ink-2);background:var(--surface-2);border-color:transparent}
+.groups{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.grp{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:12px 24px;padding:16px 18px;border-top:1px solid var(--line)}
+.grp:first-child{border-top:0}
+@media (max-width:760px){.grp{grid-template-columns:1fr}}
+.grp h3{margin:0;font-size:15px;font-weight:700}
+.gmeta{display:grid;gap:6px;align-content:start;font-size:12.5px;color:var(--ink-3)}
+.gmeta .amt{font-size:18px;font-weight:700;color:var(--ink)}
+.gmeta .lp{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.kwlist{display:flex;flex-wrap:wrap;gap:6px;align-content:start}
+.intent{justify-self:start}
+.intent.hi{background:var(--good-soft);color:var(--good)}
+.intent.md{background:var(--warn-soft);color:var(--warn)}
+.kwcols{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px}
+@media (max-width:900px){.kwcols{grid-template-columns:1fr}}
+.kwblock{display:grid;gap:10px;align-content:start;min-width:0}
+.kwblock h3{margin:0;font-size:15px;font-weight:700}
+.neggrp{display:grid;gap:6px;margin-top:6px}
+.neggrp .eyebrow{font-size:10.5px}
+.kwfoot{font-size:12.5px;color:var(--ink-3);max-width:100ch}
+.kwfoot a{color:var(--accent);font-weight:600}
+
+body{margin:0}
+.docnav{max-width:1180px;margin:0 auto 18px;display:flex;flex-wrap:wrap;gap:6px}
+.docnav a{font:600 12.5px var(--sans);text-decoration:none;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px}
+.docnav a[aria-current]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.docnav a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<nav class="docnav" aria-label="Documents"><a href="1-marketing-budget.html">Marketing budget</a><a href="2-keyword-plan.html" aria-current="page">Keyword plan</a><a href="3-website-outline.html">Website outline</a></nav>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <span class="eyebrow">Well-Mannered Hounds · Wells, Somerset</span>
+      <h1>Google Ads &amp; SEO keyword plan</h1>
+      <p class="sub">The 15 keywords the business bids on in Google Ads and builds website pages around, the negative keywords that block wasted clicks, and which page ranks for which keyword. It covers the £6,000 Google search line in the marketing budget.</p>
+    </div>
+    <dl class="meta">
+      <dt>Google Ads budget</dt><dd>£6,000 / 12 months</dd>
+      <dt>Keywords</dt><dd>15 maximum</dd>
+      <dt>Targeting</dt><dd>Wells + 15 miles</dd>
+      <dt>Period</dt><dd>Jan – Dec 2027</dd>
+    </dl>
+  </header>
+  <section class="panel" id="keywords">
+    <div class="ph"><h2>Keyword plan: Google search &amp; SEO</h2><p id="kw-sub">What we bid on, what we exclude, and which page ranks for what</p></div>
+    <div class="kwstats" id="kwstats"></div>
+    <div class="kwkey"><span class="kw e">[exact]</span> exact match <span class="kw p">"phrase"</span> phrase match <span class="kw p ac">"verified"<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.2l2.3 2.3L9.5 3.8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span> seen in Google UK autocomplete, so real people type it</div>
+    <div class="groups" id="kwgroups"></div>
+    <div class="kwcols">
+      <div class="kwblock">
+        <h3>Negative keywords</h3>
+        <p class="muted" style="font-size:13px">Searches like these trigger no ads, so no money goes on job-seekers, DIY researchers or people after other pet services.</p>
+        <div id="kwneg"></div>
+      </div>
+      <div class="kwblock">
+        <h3>SEO: one page per keyword theme</h3>
+        <p class="muted" style="font-size:13px">Covered by the "Website &amp; local SEO" budget. Each page targets one main keyword, so the site ranks for free alongside the ads.</p>
+        <div class="tw"><table id="kwseo"><thead><tr><th>Page</th><th>Main keyword</th><th>Also covers</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+    <p class="kwfoot" id="kwfoot"></p>
+  </section>
+
+  <footer class="foot"><span>Well-Mannered Hounds · Keyword plan 2027</span><span>Autocomplete checked Sep 2026 · confirm volumes in Google Keyword Planner</span></footer>
+</div>
+<script>
+const css=v=>`var(${v})`;
+const fmt=n=>'£'+Math.round(n).toLocaleString('en-GB');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const $=id=>document.getElementById(id);
+
+// ---------- keyword plan ----------
+const AC=new Set((["1 to 1 dog trainer near me", "1 to 1 dog training", "1 to 1 dog training near me", "1 to 1 dog training near me prices", "1 to 1 dog training prices", "1 to 1 puppy training", "1 to 1 puppy training near me", "dog behaviourist somerset", "dog trainer glastonbury", "dog trainer shepton mallet", "dog trainer somerset", "dog trainer wells", "dog training cheddar", "dog training glastonbury", "dog training shepton mallet", "dog training somerset", "dog training street somerset", "dog training wells", "dog training wells somerset", "gun dog trainer somerset", "puppy classes near me", "puppy classes near me prices", "puppy classes somerset", "puppy training cheddar", "puppy training shepton mallet", "puppy training somerset", "puppy training wells", "reactive dog training somerset"]).map(s=>s.toLowerCase().trim()));
+const CPC=2.25;
+const KW_MAX=15;
+const KW=[
+ {g:'Puppy classes',b:2000,intent:'hi',lp:'/puppy-classes',why:'Highest intent: a new puppy owner looking for a course right now',
+  k:[['puppy training wells','e'],['puppy classes wells','e'],['puppy classes somerset','p'],['puppy classes near me','p']]},
+ {g:'Dog trainer & obedience',b:2200,intent:'hi',lp:'/ (home) + town pages',why:'People searching for a local trainer in Wells or a nearby town',
+  k:[['dog trainer wells','e'],['dog training wells somerset','e'],['dog training somerset','p'],['dog trainer somerset','p'],['dog training glastonbury','e'],['dog training shepton mallet','e'],['dog training street somerset','e']]},
+ {g:'One-to-one & reactive dogs',b:1500,intent:'hi',lp:'/one-to-one',why:'Higher-value clients: private sessions at £30–£70/hr',
+  k:[['1 to 1 dog training near me','p'],['reactive dog training somerset','p'],['dog behaviourist somerset','p']]},
+ {g:'Brand name',b:300,intent:'hi',lp:'/ (home)',why:'Cheap clicks that stop competitors bidding on our name',
+  k:[['well-mannered hounds','e']]},
+];
+const NEG=[
+ ['Wrong place (found in autocomplete)',['somerset west','tunbridge','tenbury','two wells','nottingham','maine','ky','nj','pa','ct','petsmart']],
+ ['Jobs & qualifications',['jobs','careers','apprenticeship','course to become','qualification','certificate','salary']],
+ ['Other pet services',['kennels','boarding','dog walker','dog walking','grooming','groomer','daycare','dog sitter','vet']],
+ ['DIY & research',['free online','youtube','video','pdf','book','app','diy']],
+ ['Buying & other animals',['puppies for sale','breeder','for sale','collar','harness','treats','cat','horse','cheese','festival']],
+ ['Specialist work we don’t offer',['police dog','gun dog trainer','assistance dog','protection dog']],
+];
+const SEO=[
+ ['Home','dog trainer Wells','dog training Wells Somerset'],
+ ['/puppy-classes','puppy training Wells','puppy classes Wells, puppy classes Somerset'],
+ ['/one-to-one','1 to 1 dog training near me','dog behaviourist Somerset'],
+ ['/reactive-dogs','reactive dog training Somerset','dog trainer Somerset'],
+ ['/glastonbury · /shepton-mallet · /street','dog training + town name','the three town keywords above'],
+ ['Google Business Profile','Primary category: Dog trainer','dog training Somerset, puppy classes near me'],
+];
+(function(){
+  const tick='<svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.2l2.3 2.3L9.5 3.8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const chip=([t,m])=>{const seen=AC.has(t.toLowerCase());return `<span class="kw ${m}${seen?' ac':''}"${seen?' title="Seen in Google UK autocomplete"':''}>${m==='e'?'['+esc(t)+']':'"'+esc(t)+'"'}${seen?tick:''}</span>`};
+  const nk=KW.reduce((a,g)=>a+g.k.length,0), nn=NEG.reduce((a,g)=>a+g[1].length,0);
+  const seen=KW.flatMap(g=>g.k).filter(([t])=>AC.has(t.toLowerCase())).length;
+  const gb=KW.reduce((a,g)=>a+g.b,0);
+  $('kwstats').innerHTML=[[KW.length,'ad groups'],[nk+' / '+KW_MAX,'keywords (max 15)'],[nn,'negative keywords'],[AC.size?seen+' / '+nk:'—','confirmed in autocomplete'],['Wells + 15 mi','BA4, BA5, BA6, BA16, BS27']].map(([v,l])=>`<span><b>${v}</b>${l}</span>`).join('');
+  $('kwgroups').innerHTML=KW.map(g=>`<div class="grp"><div class="gmeta"><h3>${esc(g.g)}</h3>
+    <span><span class="amt">${fmt(g.b)}</span> · ${(g.b/gb*100).toFixed(0)}% of search · ~${Math.round(g.b/CPC).toLocaleString('en-GB')} clicks</span>
+    <span class="pill intent ${g.intent}"><span class="dot"></span>${g.intent==='hi'?'High intent':'Medium intent'}</span>
+    <span>Lands on <span class="lp">${esc(g.lp)}</span></span><span>${esc(g.why)}</span></div>
+    <div class="kwlist">${g.k.map(chip).join('')}</div></div>`).join('');
+  $('kwneg').innerHTML=NEG.map(([h,l])=>`<div class="neggrp"><span class="eyebrow">${esc(h)}</span><div class="kwlist">${l.map(t=>`<span class="kw neg">−${esc(t)}</span>`).join('')}</div></div>`).join('');
+  document.querySelector('#kwseo tbody').innerHTML=SEO.map(([p,m,a])=>`<tr><td class="mono" style="font-size:12.5px;color:var(--accent)">${esc(p)}</td><td><b>${esc(m)}</b></td><td class="muted">${esc(a)}</td></tr>`).join('');
+  $('kwfoot').innerHTML=`Clicks are estimated at ~£${CPC.toFixed(2)} per click, the middle of the £1.50–£3.00 UK local-trades range (<a href="https://whitehat-seo.co.uk/blog/google-ads-ppc-pricing" target="_blank" rel="noopener">Whitehat SEO</a>). Ad-group budgets add up to the ${fmt(gb)} Google Ads line in the ledger. Before launch, check exact monthly search volumes in Google Keyword Planner. Very local terms often show "&lt;10" searches a month, which is why the town-name keywords are grouped together. Meta lead ads don't use keywords; they target new dog owners within 15 miles of Wells.`;
+})();
+
+</script>
+</body>
+</html>

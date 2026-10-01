@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Well-Mannered Hounds Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --surface-2:#EDF1EF; --ink:#12201B; --ink-2:#4A5A54; --ink-3:#7C8A85;
+  --line:#DCE3E0; --accent:#1C5C4B; --accent-soft:#DDEBE6; --good:#1F8A5B; --good-soft:#DDF2E7; --warn:#B26A12; --warn-soft:#F7EBDA;
+  --c-paid:#2F6FDB; --c-ref:#CF3F74;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0E1513; --surface:#151F1C; --surface-2:#1B2723; --ink:#E7EEEB; --ink-2:#A9B7B2; --ink-3:#7A8A84;
+  --line:#26332F; --accent:#6FC7AE; --accent-soft:#1D3530; --good:#5FD39A; --good-soft:#173328; --warn:#E9A64B; --warn-soft:#3A2B17;
+  --c-paid:#5B8FF0; --c-ref:#EC6A98;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1513; --surface:#151F1C; --surface-2:#1B2723; --ink:#E7EEEB; --ink-2:#A9B7B2; --ink-3:#7A8A84;
+  --line:#26332F; --accent:#6FC7AE; --accent-soft:#1D3530; --good:#5FD39A; --good-soft:#173328; --warn:#E9A64B; --warn-soft:#3A2B17;
+  --c-paid:#5B8FF0; --c-ref:#EC6A98;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:28px 64px}
+.wrap{max-width:1100px;margin:0 auto;display:grid;gap:22px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+h2{font-size:20px;font-weight:700;letter-spacing:-.01em}
+h3{font-size:15px;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.muted{color:var(--ink-3)}
+.mono{font-family:var(--mono)}
+a{color:var(--accent)}
+.top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.top .sub{color:var(--ink-2);max-width:64ch;margin-top:8px}
+.meta{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:13px;margin:0}
+.meta dt{color:var(--ink-3)} .meta dd{margin:0;font-weight:600;text-align:right}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px;min-width:0}
+.ph{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.ph p{font-size:13px;color:var(--ink-3)}
+
+/* sitemap */
+.nav-mock{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);font-size:13px;font-weight:600}
+.nav-mock .logo{font-weight:800;margin-right:auto}
+.nav-mock .cta{background:var(--accent);color:var(--surface);padding:5px 12px;border-radius:7px}
+.tree{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.tree{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.tree{grid-template-columns:1fr}}
+.col{display:grid;gap:6px;align-content:start}
+.col .eyebrow{margin-bottom:2px}
+.node{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:9px;padding:8px 11px;background:var(--surface)}
+.node:hover{border-color:var(--accent)}
+.node:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.node b{display:block;font-size:13.5px}
+.node span{font:500 11.5px var(--mono);color:var(--ink-3)}
+.node.land{border-style:dashed}
+
+/* page cards */
+.page{scroll-margin-top:16px}
+.pagehead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;justify-content:space-between}
+.url{font:500 13px var(--mono);color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.kw{display:inline-flex;font:500 12px var(--mono);padding:3px 8px;border-radius:6px;border:1px solid color-mix(in srgb,var(--c-paid) 40%,var(--line));background:color-mix(in srgb,var(--c-paid) 7%,var(--surface))}
+.tag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.tag.land{background:var(--warn-soft);color:var(--warn)}
+.seo{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;margin:0;padding:12px 14px;border-radius:10px;background:var(--surface-2)}
+.seo dt{color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+.seo dd{margin:0}
+.seo .serp-t{color:var(--c-paid);font-weight:600}
+.seo .cnt{font:500 11px var(--mono);color:var(--ink-3);margin-left:6px}
+.secs{display:grid;gap:0;border-left:2px solid var(--line);margin-left:4px}
+.sec{display:grid;gap:6px;padding:10px 0 12px 16px;position:relative}
+.sec::before{content:"";position:absolute;left:-6px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.sec h4{font-size:13.5px;font-weight:700}
+.sec h4 small{font:500 11px var(--mono);color:var(--ink-3);margin-left:6px;letter-spacing:.04em}
+.copy{font-size:14px;color:var(--ink-2);max-width:72ch}
+.copy b{color:var(--ink)}
+.copy ul{margin:4px 0 0;padding-left:18px;display:grid;gap:2px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.btn{font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:7px;background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.foot2{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12.5px;color:var(--ink-3);padding-top:10px;border-top:1px solid var(--line)}
+.foot2 b{color:var(--ink-2)}
+.ph-note{font-size:13px;color:var(--ink-2);background:var(--warn-soft);border-radius:10px;padding:10px 14px}
+.ph-note b{color:var(--warn)}
+.fill{background:var(--warn-soft);color:var(--warn);border-radius:4px;padding:0 4px;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tw{overflow-x:auto}
+.foot{font-size:12px;color:var(--ink-3);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+body{margin:0}
+.docnav{max-width:1180px;margin:0 auto 18px;display:flex;flex-wrap:wrap;gap:6px}
+.docnav a{font:600 12.5px var(--sans);text-decoration:none;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px}
+.docnav a[aria-current]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.docnav a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<nav class="docnav" aria-label="Documents"><a href="1-marketing-budget.html">Marketing budget</a><a href="2-keyword-plan.html">Keyword plan</a><a href="3-website-outline.html" aria-current="page">Website outline</a></nav>
+
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <span class="eyebrow">Well-Mannered Hounds · Wells, Somerset</span>
+      <h1 style="margin-top:8px">Website outline &amp; page content</h1>
+      <p class="sub">The full structure and copy for the business website. Every page targets keywords from the 15-keyword plan and ends in one action we can track: book, call or claim the free taster. It is built from the £2,600 "website with online booking" line in the marketing budget.</p>
+    </div>
+    <dl class="meta">
+      <dt>Pages</dt><dd id="m-pages">—</dd>
+      <dt>Main goal</dt><dd>Free taster bookings</dd>
+      <dt>Keywords used</dt><dd id="m-kw">—</dd>
+      <dt>Prepared</dt><dd>1 Oct 2026</dd>
+    </dl>
+  </header>
+
+  <p class="ph-note"><b>Highlighted text</b> like <span class="fill">[Trainer name]</span> marks details only you can fill in: names, phone number, venue, qualifications. Don't publish them until they're true.</p>
+
+  <section class="panel">
+    <div class="ph"><h2>Sitemap</h2><p>Click any page to jump to its content</p></div>
+    <div class="nav-mock" aria-label="Main menu mock-up"><span class="logo">Well-Mannered Hounds</span><span>Puppy classes</span><span>One-to-one</span><span>Reactive dogs</span><span>Prices</span><span>About</span><span class="cta">Book a free consultation</span></div>
+    <div class="tree" id="tree"></div>
+  </section>
+
+  <section class="panel">
+    <div class="ph"><h2>Keyword → page map</h2><p>Each of the 15 keywords has one home, so pages don't compete with each other</p></div>
+    <div class="tw"><table id="kwmap"><thead><tr><th>Keyword</th><th>Page</th><th>Where it appears</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <div id="pages" class="wrap" style="gap:22px"></div>
+
+  <section class="panel">
+    <div class="ph"><h2>On every page</h2><p>Shared elements</p></div>
+    <div class="secs" id="global"></div>
+  </section>
+
+  <footer class="foot"><span>Well-Mannered Hounds · Website outline</span><span>Copy is a draft for review; prices match the 2027 marketing budget assumptions</span></footer>
+</div>
+
+<script>
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+// inline markup helpers in copy: **bold**, [[fill]], "- " bullet lines
+const rich=t=>{const lines=t.split('\n');let out='',ul=false;
+  for(const l of lines){const h=esc(l).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[\[(.+?)\]\]/g,'<span class="fill">[$1]</span>');
+    if(l.startsWith('- ')){if(!ul){out+='<ul>';ul=true}out+='<li>'+h.slice(2)+'</li>'}else{if(ul){out+='</ul>';ul=false}out+=(out?'<br>':'')+h}}
+  return out+(ul?'</ul>':'')};
+
+const GROUPS=[['Core pages',['home','puppy','one','reactive']],['Booking',['taster','prices','refer']],['Trust',['about','reviews','contact']],['Local pages',['glastonbury','shepton','street','legal']]];
+
+const PAGES=[
+{id:'home',name:'Home',url:'/',kw:['dog trainer wells','dog training wells somerset','dog training somerset'],
+ title:'Dog Trainer in Wells, Somerset | Well-Mannered Hounds',
+ desc:'Friendly, reward-based dog training in Wells. Puppy classes, one-to-one and help for reactive dogs across Mendip. Book a free puppy taster.',
+ h1:'Dog trainer in Wells, Somerset',
+ secs:[
+  ['Hero','Dog trainer in Wells, Somerset\nPuppy classes, one-to-one training and help for reactive dogs. Reward-based, small groups, and local to Wells, Glastonbury, Street and Shepton Mallet.',['Book a free puppy taster','See classes & prices']],
+  ['Trust bar','**Max 6 dogs per class** · **Reward-based methods** · **Fully insured** · **★ [[rating]] on Google**'],
+  ['Services (3 cards)','- **Puppy classes**: 6 weeks, £120. Toilet training, biting, recall and lead walking.\n- **One-to-one training**: £55 per session, at your home or on your usual walk.\n- **Reactive dogs**: 3-session plan, £150, in quiet private field slots.',['Find the right course']],
+  ['How it works','- **Come to a free taster**: one hour at Wells Town Hall, once a month.\n- **Pick your course**: book online and pay a £30 deposit.\n- **Graduate**: every graduate gets a Well-Mannered Hounds t-shirt.'],
+  ['Areas we cover','Dog training across Somerset, centred on Wells and about 15 miles around: Glastonbury, Street, Shepton Mallet and the villages between. Links to each town page.'],
+  ['Reviews strip','Three latest Google reviews, with a "Read all reviews" link.'],
+  ['Final call to action','Got a new puppy? The next free taster is on [[date]] at Wells Town Hall. Places are limited to 8 puppies.',['Claim my free place']],
+ ],track:'Booking-form conversion tag · call-tracking number · "How did you hear about us?" field'},
+
+{id:'puppy',name:'Puppy classes',url:'/puppy-classes',kw:['puppy training wells','puppy classes wells','puppy classes somerset','puppy classes near me'],
+ title:'Puppy Classes in Wells | Puppy Training Somerset',
+ desc:'6-week puppy classes in Wells for puppies aged 8–20 weeks. Max 6 puppies, £120. Toilet training, biting, recall and lead walking. Free taster first.',
+ h1:'Puppy classes in Wells',
+ secs:[
+  ['Intro','The first months shape the dog your puppy becomes. Our 6-week puppy training course in Wells teaches the basics with treats, toys and patience, in a group small enough that every puppy gets attention.'],
+  ['Who it’s for','Puppies aged **8–20 weeks**, starting once your vet says they can mix with other puppies. Bring the whole family; children over 8 are welcome.'],
+  ['What your puppy learns (week by week)','- **Week 1**: name, focus and settling on a mat\n- **Week 2**: sit, down and gentle hands (puppy biting)\n- **Week 3**: toilet-training plan and crate confidence\n- **Week 4**: loose-lead walking\n- **Week 5**: recall and "leave it"\n- **Week 6**: polite greetings, then the graduation walk and t-shirt'],
+  ['Searching for \u201cpuppy classes near me\u201d?','If you live within about 15 miles of Wells, including Glastonbury, Street and Shepton Mallet, our classes are probably your closest. Check the areas list at the bottom of the page.'],
+  ['Course details','6 × 1-hour weekly sessions · [[venue, Wells]] · max 6 puppies · **£120** (£30 deposit online, rest on week 1) · missed sessions can be caught up in the next course.',['Reserve a place']],
+  ['FAQ','- **Does my puppy need all their vaccinations?** Follow your vet’s advice; we ask for the vaccination date when you book.\n- **Can two people come?** Yes, up to two adults per puppy.\n- **Not sure your puppy is ready?** Come to the free taster first.'],
+  ['Call to action','Try a class first, for free.',['Book a free puppy taster']],
+ ],track:'Google Ads "Puppy classes" ad group lands here · booking conversion tag'},
+
+{id:'one',name:'One-to-one training',url:'/one-to-one',kw:['1 to 1 dog training near me','dog behaviourist somerset'],
+ title:'1 to 1 Dog Training near Wells, Somerset',
+ desc:'Private dog training at your home or on local walks. £55 per session in Wells and 15 miles around. Recall, lead pulling, jumping up and more.',
+ h1:'One-to-one dog training',
+ secs:[
+  ['Intro','Some problems are easier to fix where they happen. One-to-one sessions take place at your home or on your usual walk, at times that suit you.'],
+  ['Problems we help with','- Pulling on the lead\n- Recall that stops working at the park\n- Jumping up at visitors\n- Barking at the door or in the garden\n- A new rescue dog settling in\n- Getting ready for a new baby'],
+  ['How a session works','- **Free 15-minute phone call** to talk through the problem.\n- **First session (90 minutes)** at home: we watch, then practise together.\n- **Written plan** sent the same day.\n- **Message support** between sessions.'],
+  ['Prices','First session **£55** · pack of 4 sessions **£200** · travel included up to 15 miles from Wells.',['Book a one-to-one']],
+  ['Looking for a dog behaviourist in Somerset?','Many owners search for a "behaviourist" when they need practical training help, which is what we do. For aggression or problems that could be medical, we work with your vet and refer you to a qualified clinical animal behaviourist (listed on the ABTC register). We will tell you honestly which you need.'],
+ ],track:'Google Ads "One-to-one & reactive" ad group · call tracking · booking tag'},
+
+{id:'reactive',name:'Reactive dogs',url:'/reactive-dogs',kw:['reactive dog training somerset','dog trainer somerset'],
+ title:'Reactive Dog Training Somerset | Well-Mannered Hounds',
+ desc:'Calm, reward-based help for dogs that bark or lunge at dogs, people or traffic. 3-session plan for £150, with quiet private field slots near Wells.',
+ h1:'Help for reactive dogs in Somerset',
+ secs:[
+  ['Intro','If walks have become stressful, with barking, lunging and crossing the road to avoid other dogs, you are not alone, and your dog isn’t "bad". Reactivity is usually fear or frustration, and it can improve.'],
+  ['Signs of reactivity','- Barking or lunging at dogs, people, bikes or cars\n- Freezing, staring or pulling hard toward triggers\n- Walking only at quiet times to avoid others'],
+  ['Our approach','We start at a distance where your dog feels safe, reward calm choices and slowly build confidence. No shouting, no punishment, no "flooding". Sessions take place in a **quiet private field near Wells** with no other dogs around.'],
+  ['The 3-session plan (£150)','- **Session 1**: assessment and a management plan for walks this week.\n- **Session 2**: calm-behaviour exercises in the private field.\n- **Session 3**: practice near a real trigger, under control.',['Book a reactive-dog assessment']],
+  ['Owner stories','Two short case stories, with the owners’ permission and a before/after video clip.'],
+ ],track:'Google Ads "One-to-one & reactive" ad group · booking tag'},
+
+{id:'taster',name:'Free puppy taster',url:'/taster',land:true,kw:[],
+ title:'Free Puppy Taster Session in Wells',
+ desc:'Try a puppy class for free at Wells Town Hall. One hour, max 8 puppies, monthly. Claim your place in 30 seconds.',
+ h1:'Free puppy taster: try a class before you book',
+ secs:[
+  ['Purpose','The landing page for **Meta lead ads, leaflets, QR codes, market stalls and the Bath & West Show**. No menu, one goal: claim a place. Set to "noindex", so it doesn’t compete with /puppy-classes in Google.'],
+  ['Hero','Free 1-hour puppy taster at Wells Town Hall. Meet the trainer, learn three things you can use tonight, and see if a course is right for you.\nNext date: **[[date]]** · places left: **[[number]]**'],
+  ['Booking form','Name · mobile · email · puppy’s name and age · **How did you hear about us?** (Google / Facebook or Instagram / leaflet / market or show / friend’s referral code / shirt, sign or car QR) · **Voucher code** (optional; WELLS or the leaflet code).',['Claim my free place']],
+  ['After booking','A confirmation SMS and email with the date, address and what to bring (treats, a lead, a flat collar). Reminder sent the day before.'],
+ ],track:'Every source has its own link, e.g. /taster?src=leaflet-feb, ?src=shirt, ?src=magnet, ?src=field-sign, ?src=meta'},
+
+{id:'prices',name:'Prices & booking',url:'/book',kw:[],
+ title:'Dog Training Prices & Booking | Well-Mannered Hounds',
+ desc:'Clear prices for puppy classes, one-to-one sessions and reactive-dog help in Wells. Book online with a £30 deposit.',
+ h1:'Prices & booking',
+ secs:[
+  ['Price table','- **Free puppy taster**: £0\n- **6-week puppy course**: £120\n- **One-to-one session**: £55 (pack of 4 for £200)\n- **Reactive-dog 3-session plan**: £150'],
+  ['Timetable','The next course start dates and times, pulled live from the booking system.'],
+  ['Booking','Online booking with a £30 deposit, which counts toward the course price.',['Book now']],
+  ['Cancellation policy (summary)','Deposits are refundable up to 7 days before a course starts. Cancel a one-to-one with 48 hours’ notice for a full refund or a free reschedule.'],
+ ],track:'Booking completed = main conversion, sent to Google Ads and Meta'},
+
+{id:'refer',name:'Refer a friend',url:'/refer',kw:[],
+ title:'Refer a Friend | Well-Mannered Hounds',
+ desc:'Know someone with a new puppy? Send them your code. When they book a course, you both get £25 off.',
+ h1:'Refer a friend: you both get £25',
+ secs:[
+  ['How it works','- Find your personal code in your welcome email or on the QR code on the back of your graduate t-shirt.\n- Your friend enters it when booking.\n- When they start their course, you both get **£25 off** your next booking.'],
+  ['For vets, groomers & pet shops','A partner section with referral cards and a thank-you scheme. Contact us to join.',['Become a partner']],
+ ],track:'Personal referral codes tracked in the CRM'},
+
+{id:'about',name:'About',url:'/about',kw:[],
+ title:'About Your Wells Dog Trainer | Well-Mannered Hounds',
+ desc:'Meet [Trainer name], the reward-based dog trainer behind Well-Mannered Hounds in Wells, Somerset.',
+ h1:'Meet your trainer',
+ secs:[
+  ['Story','Hi, I’m [[Trainer name]]. I started Well-Mannered Hounds to give Wells dog owners the calm, practical help I wished I’d had with my first dog, [[dog’s name]]. [[2–3 lines about your background]].'],
+  ['How we train','Reward-based and force-free: we teach dogs what to do instead of punishing what they get wrong. That means no shock, prong or choke collars, ever.'],
+  ['Qualifications & insurance','[[Training qualifications and memberships]] · [[insurance provider]] · DBS checked: [[yes/no]]. List only what you actually hold.'],
+  ['Photo','A real photo of the trainer and their dog in Wells, taken at a taster session.'],
+ ],track:'Supports conversion; no form of its own (the "Book a free consultation" button in the header)'},
+
+{id:'reviews',name:'Reviews',url:'/reviews',kw:[],
+ title:'Reviews | Well-Mannered Hounds Dog Training, Wells',
+ desc:'Read what Wells, Glastonbury and Street dog owners say about our puppy classes and one-to-one training.',
+ h1:'What owners say',
+ secs:[
+  ['Google reviews','Live Google reviews widget, newest first. Every course ends with an automatic review request (the review-automation line in the budget).'],
+  ['Video stories','Short graduate clips filmed at the end of each course, with owners’ consent.'],
+ ],track:'Supports conversion; review count tracked monthly'},
+
+{id:'contact',name:'Contact',url:'/contact',kw:[],
+ title:'Contact | Dog Trainer Wells, Somerset',
+ desc:'Call, WhatsApp or email Well-Mannered Hounds. Serving Wells, Glastonbury, Street and Shepton Mallet.',
+ h1:'Get in touch',
+ secs:[
+  ['Details','Phone and WhatsApp: [[number]] · Email: [[email]] · Hours: Mon–Sat, 8am–6pm · Classes held at [[venue, Wells]].'],
+  ['Short form','Name · phone · "What can we help with?" · How did you hear about us?',['Send message']],
+  ['Map','A service-area map showing Wells plus 15 miles.'],
+ ],track:'Form conversion tag · call tracking'},
+
+{id:'glastonbury',name:'Glastonbury',url:'/glastonbury',kw:['dog training glastonbury'],
+ title:'Dog Training in Glastonbury | Well-Mannered Hounds',
+ desc:'Puppy classes and one-to-one dog training for Glastonbury owners, about 6 miles from our Wells classes. Home visits available.',
+ h1:'Dog training in Glastonbury',
+ secs:[['Local intro','Glastonbury is about 6 miles from our Wells classes. One-to-one sessions come to your home or your usual walk, and puppy classes run in Wells.'],['Local proof','Reviews from Glastonbury owners, once there are some.'],['Call to action','Same buttons as the home page.',['Book a free puppy taster']]],
+ track:'Google Ads town keyword lands here'},
+{id:'shepton',name:'Shepton Mallet',url:'/shepton-mallet',kw:['dog training shepton mallet'],
+ title:'Dog Training in Shepton Mallet | Well-Mannered Hounds',
+ desc:'Puppy classes and one-to-one dog training for Shepton Mallet owners, a short drive from Wells. See us at the Royal Bath & West Show.',
+ h1:'Dog training in Shepton Mallet',
+ secs:[['Local intro','Shepton Mallet is about 6 miles from Wells. Visit our stand in the "Bark and West" canine area at the Royal Bath & West Show.'],['Call to action','Same buttons as the home page.',['Book a free puppy taster']]],
+ track:'Google Ads town keyword lands here'},
+{id:'street',name:'Street',url:'/street',kw:['dog training street somerset'],
+ title:'Dog Training in Street, Somerset | Well-Mannered Hounds',
+ desc:'Puppy classes and one-to-one dog training for Street owners, about 8 miles from our Wells classes. Home visits available.',
+ h1:'Dog training in Street, Somerset',
+ secs:[['Local intro','Street is about 8 miles from Wells. One-to-one sessions come to you, and puppy classes run in Wells.'],['Call to action','Same buttons as the home page.',['Book a free puppy taster']]],
+ track:'Google Ads town keyword lands here'},
+
+{id:'legal',name:'Privacy, cookies & terms',url:'/privacy · /cookies · /terms',kw:[],
+ title:'Privacy & Cookies | Well-Mannered Hounds',
+ desc:'How we use your information, which cookies we set, and our booking terms.',
+ h1:'Privacy, cookies & terms',
+ secs:[
+  ['Privacy (UK GDPR)','What we collect (contact and dog details from forms), why (to reply and run bookings), how long we keep it ([[e.g. 2 years after last booking]]) and how to ask for it to be deleted.'],
+  ['Cookies (PECR)','A consent banner **before** the Google Ads and Meta tracking tags load. Analytics and advertising cookies are off until the visitor accepts.'],
+  ['Terms','Deposits, cancellations, health and safety at classes, and dogs must be vaccinated per vet advice.'],
+ ],track:'Required for the ad tracking used across the budget'},
+];
+
+const GLOBAL=[
+ ['Header','Logo · Puppy classes · One-to-one · Reactive dogs · Prices · About · **Book a free consultation** button.'],
+ ['Mobile sticky bar','Two buttons fixed to the bottom of the screen on phones: **Call** and **Book a free consultation**.'],
+ ['Footer','Areas covered (links to Wells, Glastonbury, Shepton Mallet and Street pages) · phone · email · Facebook · Instagram · Google reviews link · Privacy · Cookies · Terms.'],
+ ['Tracking (all pages)','Google Ads conversion tag and Meta pixel (after cookie consent) · call-tracking number · every form asks "How did you hear about us?" · each QR code and leaflet has its own ?src= link, so the marketing dashboard can show cost per booking by channel.'],
+];
+
+// render
+const KWALL=PAGES.flatMap(p=>p.kw.map(k=>[k,p]));
+document.getElementById('m-pages').textContent=PAGES.length+' (incl. legal)';
+document.getElementById('m-kw').textContent=(KWALL.length+1)+' of 15';
+const byId=Object.fromEntries(PAGES.map(p=>[p.id,p]));
+document.getElementById('tree').innerHTML=GROUPS.map(([g,ids])=>`<div class="col"><span class="eyebrow">${g}</span>${ids.map(id=>{const p=byId[id];return `<a class="node${p.land?' land':''}" href="#p-${p.id}"><b>${esc(p.name)}</b><span>${esc(p.url)}</span></a>`}).join('')}</div>`).join('');
+const where=(k,p)=>{const t=p.title.toLowerCase(),h=p.h1.toLowerCase();return [t.includes(k)?'title':null,h.includes(k)?'H1':null,'body copy'].filter(Boolean).join(' · ')};
+const brand=['well-mannered hounds','Brand name','Google Ads brand ad group + every page title'];
+document.querySelector('#kwmap tbody').innerHTML=KWALL.map(([k,p])=>`<tr><td><span class="kw">${esc(k)}</span></td><td><a href="#p-${p.id}" class="mono" style="font-size:12.5px">${esc(p.url)}</a></td><td class="muted">${where(k,p)}</td></tr>`).join('')+
+ `<tr><td><span class="kw">${brand[0]}</span></td><td class="mono" style="font-size:12.5px">all pages</td><td class="muted">${brand[2]}</td></tr>`;
+document.getElementById('pages').innerHTML=PAGES.map(p=>`<section class="panel page" id="p-${p.id}">
+  <div class="pagehead"><div style="display:grid;gap:4px"><span class="url">${esc(p.url)}</span><h2>${esc(p.name)}</h2></div>
+  <div class="chips">${p.land?'<span class="tag land">Ad & QR landing page</span>':''}${p.kw.map(k=>`<span class="kw">${esc(k)}</span>`).join('')}</div></div>
+  <dl class="seo"><dt>SEO title</dt><dd><span class="serp-t">${esc(p.title)}</span><span class="cnt">${p.title.length}/60</span></dd>
+   <dt>Meta</dt><dd>${esc(p.desc)}<span class="cnt">${p.desc.length}/155</span></dd><dt>H1</dt><dd><b>${esc(p.h1)}</b></dd></dl>
+  <div class="secs">${p.secs.map(([h,t,b])=>`<div class="sec"><h4>${esc(h)}</h4><div class="copy">${rich(t)}</div>${b?`<div class="btns">${b.map((x,i)=>`<span class="btn${i?' ghost':''}">${esc(x)}</span>`).join('')}</div>`:''}</div>`).join('')}</div>
+  <div class="foot2"><span><b>Tracking:</b> ${esc(p.track)}</span></div></section>`).join('');
+document.getElementById('global').innerHTML=GLOBAL.map(([h,t])=>`<div class="sec"><h4>${esc(h)}</h4><div class="copy">${rich(t)}</div></div>`).join('');
+</script>
+
+</body>
+</html>
